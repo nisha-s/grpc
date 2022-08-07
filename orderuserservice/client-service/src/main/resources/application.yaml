@@ -1,0 +1,17 @@
+#grpc:
+#  client:
+#    user-service:
+#      address: static://user-service #static://localhost:6565
+#      negotiationType: plainText
+#    order-service:
+#      address: static://localhost:7575 #static://order-service
+#      negotiationType: plainText
+
+
+grpc:
+  client:
+    service-name:
+      address: 'discovery:///order-service'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext

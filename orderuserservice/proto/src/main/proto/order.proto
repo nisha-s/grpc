@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+option java_package = "com.shopping.stubs.order";
+option java_multiple_files = true;
+
+service OrderService {
+
+ // unary
+ // takes in user_id and returns list of orders for that user_id
+ rpc unaryGrpc(OrderRequest) returns (OrderResponse1);
+
+ // server-streaming
+ // takes in user_id and returns orders one by one (not in a list)
+ rpc serverStreamingGrpc(OrderRequest) returns (stream OrderResponse2);
+
+ // client-streaming
+ // takes in user_id one at a time and returns the total price and no_of_items
+ rpc clientStreamingGrpc(stream OrderRequest) returns (OrderResponse);
+
+ // bi directional
+ // takes in order_id and returns the order info for that id
+ rpc bidirectionalStreamingGrpc(stream OrderRequest) returns (stream OrderResponse1);
+
+}
+
+message OrderRequest {
+ int32 user_id = 1;
+}
+
+//message OrderRequest1 {
+// int32 order_id = 1;
+//}
+
+// client-streaming
+message OrderResponse {
+ int32 no_of_items = 1;
+ double total_amount = 2;
+}
+
+// unary
+// we'll get list of orders
+message OrderResponse1 {
+ repeated Order order = 1;
+}
+
+message Order {
+ int32 order_id = 1;
+ int32 user_id = 2;
+ int32 no_of_items = 3;
+ double total_amount = 4;
+}
+
+// server-streaming
+message OrderResponse2 {
+ int32 order_id = 1;
+ int32 user_id = 2;
+ int32 no_of_items = 3;
+ double total_amount = 4;
+}
